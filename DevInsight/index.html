@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>DevInsight</title>
+
+<link rel="stylesheet" href="style.css">
+
+<!-- Chart.js for graphs -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<header class="header">
+<div class="nav">
+
+<div class="logo">
+<img src="images/logo.png" alt="DevInsight Logo">
+</div>
+
+<div class="nav-links">
+  <a href="#dashboard">Explore</a>
+  <a href="#" onclick="compareMode()">Compare</a>
+  <a href="#" onclick="openDocs()">Docs</a>
+  <a href="https://github.com" target="_blank">GitHub</a>
+</div>
+
+</div>
+</header>
+
+
+<section class="hero">
+
+<div class="logo-radar">
+
+<img src="images/logo.png"
+class="hero-logo"
+alt="DevInsight Logo">
+
+<div class="radar-sweep"></div>
+
+</div>
+
+<h1>Understand Developers Through Data</h1>
+
+<p>
+Analyze GitHub profiles, explore repositories,
+and uncover patterns in developer activity.
+</p>
+<form class="search-box" onsubmit="handleSearch(event)">
+
+<input
+type="text"
+id="username"
+placeholder="Enter GitHub username">
+
+<button type="submit">
+Analyze
+</button>
+
+</form>
+
+<p class="hint">Try: torvalds • gaearon • octocat</p>
+
+</section>
+
+
+<main class="dashboard" id="dashboard">
+
+<!-- PROFILE -->
+
+<div class="profile-card">
+
+<div class="avatar">
+<img id="avatarImg" src="" alt="">
+</div>
+
+<div class="profile-info">
+
+<h2 id="name">Developer Name</h2>
+
+<p id="bio">
+Search a GitHub user to explore their profile.
+</p>
+
+<div class="meta">
+<span id="location">📍 Location</span>
+<span id="joined">📅 Joined Date</span>
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- METRICS -->
+
+<div class="metrics">
+
+<div class="metric">
+<p class="metric-number" id="repoCount">--</p>
+<p class="metric-label">Repositories</p>
+</div>
+
+<div class="metric">
+<p class="metric-number" id="followersCount">--</p>
+<p class="metric-label">Followers</p>
+</div>
+
+<div class="metric">
+<p class="metric-number" id="followingCount">--</p>
+<p class="metric-label">Following</p>
+</div>
+
+<div class="metric">
+<p class="metric-number" id="devScore">--</p>
+<p class="metric-label">Developer Score</p>
+</div>
+
+</div>
+
+
+
+<!-- ADVANCED INSIGHTS -->
+
+<section class="advanced-insights">
+
+<h2>Developer Insights</h2>
+
+<div class="insight-grid">
+
+<div class="card insight-card" id="codingPattern">
+
+<div class="card-header">
+
+<h3>Coding Rhythm</h3>
+
+<div class="info-icon">
+ⓘ
+<span class="tooltip-text">
+Analyzes commit timestamps to estimate when the developer usually writes code — morning, afternoon, or night.
+</span>
+</div>
+
+</div>
+
+<p>Commit activity analysis will appear here.</p>
+
+</div>
+
+<div class="card insight-card" id="projectDiversity">
+
+<div class="card-header">
+
+<h3>Project Diversity</h3>
+
+<div class="info-icon">
+ⓘ
+<span class="tooltip-text">
+Counts how many different programming languages appear across repositories to estimate how diverse the developer’s projects are.
+</span>
+</div>
+
+</div>
+
+<p>Language diversity analysis will appear here.</p>
+
+</div>
+
+<div class="card insight-card" id="ideaVelocity">
+
+<div class="card-header">
+
+<h3>Idea Velocity</h3>
+
+<div class="info-icon">
+ⓘ
+<span class="tooltip-text">
+Shows how many repositories the developer created this year.
+It helps estimate how frequently new ideas turn into projects.
+</span>
+</div>
+
+</div>
+<p>Idea Velocity analysis will appear here.</p>
+
+
+
+</div>
+<div class="card insight-card" id="survivalRate">
+
+<div class="card-header">
+
+<h3>Project Survival Rate</h3>
+
+<div class="info-icon">
+ⓘ
+<span class="tooltip-text">
+Shows how many repositories remain actively updated versus those that appear inactive.
+</span>
+</div>
+
+</div>
+
+<p>Active vs inactive projects will appear here.</p>
+
+</div>
+
+<div class="card insight-card" id="techEvolution">
+
+<div class="card-header">
+
+<h3>Tech Evolution</h3>
+
+<div class="info-icon">
+ⓘ
+<span class="tooltip-text">
+Compares the technology used in early repositories versus the most recent ones to show how the developer’s stack has evolved.
+</span>
+</div>
+
+</div>
+
+<p>Technology progression will appear here.</p>
+
+</div>
+
+<div class="card insight-card" id="collaborationScore">
+
+<div class="card-header">
+
+<h3>Collaboration Score</h3>
+
+<div class="info-icon">
+ⓘ
+<span class="tooltip-text">
+Analyzes how many repositories are forks versus original projects to estimate collaboration activity.
+</span>
+</div>
+
+</div>
+
+<p>Collaboration analysis will appear here.</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- CHARTS -->
+
+<div class="insights">
+<div class="card language-card">
+
+<div class="card-header">
+
+<h3>Technology Distribution</h3>
+
+<div class="info-icon">
+ⓘ
+<span class="tooltip-text">
+Displays how frequently different programming languages appear across the developer’s repositories.
+</span>
+</div>
+
+</div>
+
+<canvas id="languageChart"></canvas>
+
+</div>
+
+<div class="card insight-card">
+
+<div class="card-header">
+
+<h3>Developer Focus Radar</h3>
+
+<div class="info-icon">
+ⓘ
+<span class="tooltip-text">
+Visualizes the developer’s primary technical focus such as frontend, backend, DevOps, AI, or mobile development.
+</span>
+</div>
+
+</div>
+
+<canvas id="focusRadar"></canvas>
+
+</div>
+<div class="card toprepo-card">
+
+<div class="card-header">
+
+<h3>Top Repository</h3>
+
+<div class="info-icon">
+ⓘ
+<span class="tooltip-text">
+Highlights the repository with the highest star count, indicating the most popular project.
+</span>
+</div>
+
+</div>
+
+<div id="topRepo"></div>
+
+</div>
+
+</div>
+
+
+
+<!-- REPOSITORIES -->
+
+<section class="repos">
+
+<h2>Repository Explorer</h2>
+
+<div id="repoList">
+
+<p class="placeholder">
+Search a developer to explore repositories.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<div class="footer-about">
+
+<h3>DevInsight</h3>
+
+<p>
+A GitHub analytics dashboard to explore developer activity,
+repositories and coding patterns.
+</p>
+
+<p class="creators">
+Built by <strong>Subroto Sarkar</strong> with an AI collaborator.
+</p>
+
+</div>
+
+
+<div class="footer-links">
+
+<h4>Connect</h4>
+
+<a href="#">LinkedIn</a>
+<a href="#">GitHub</a>
+<a href="#">Instagram</a>
+
+</div>
+
+
+<div class="footer-feedback">
+
+<h4>Send Feedback</h4>
+
+<form>
+
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Email address" required>
+
+<textarea placeholder="Your message"></textarea>
+
+<button type="submit">Send Feedback</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<div class="footer-bottom">
+
+<p>© 2026 DevInsight • Crafted with curiosity and code</p>
+
+</div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
