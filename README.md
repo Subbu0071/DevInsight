@@ -4,8 +4,10 @@ DevInsight is a GitHub profile analyzer dashboard that helps users explore devel
 
 It takes a GitHub username as input, fetches public profile data using the GitHub API, and presents that data in an engaging dashboard with visual analytics and insight cards.
 
+---  
+Website:- https://devinsight-subbu.netlify.app/
 ---
-
+       
 ## Features
 
 ### Profile Overview
